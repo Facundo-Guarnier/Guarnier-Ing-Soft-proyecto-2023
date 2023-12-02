@@ -1,0 +1,68 @@
+Lo que corrigio el profe la ultima clase:
+
+- Diagrama de paquetes
+- Leer muro va dentro del paquete mensajes
+- Diagrama de clase de diseno, relacion entre mensaje y etiqueta es de asociación
+- Agregar lista de usuarios cuando buscas un usuario en los diagramas de requerimientos y anális
+
+Backend:
+
+La carpeta "resources" contiene las clases que actúan como controladores de tu aplicación Flask. 
+Estas clases manejan las solicitudes HTTP entrantes y hablan con la BD.
+
+Cuando escribimos en la BD con mongo (nuestra instancia de la clase PyMongo), por ej con:
+
+- mongo.db.messages.insert_one(JSON) enntonces mongo retorna:
+
+  pymongo.results.InsertOneResult que es un objeto que contiene informacion sobre la operacion
+
+- mongo.db.messages.find(JSON)
+  
+  pymongo.cursor.Cursor que es un objeto que permite recorrer los documentos resultantes de la consulta
+
+Clases de análisis o esteriotipos
+
+- Clase de interfaz: interactua con el usuario. Pueden ser formularios, páginas, pantallas, etc.
+- Clase de control: coordinan, secuencian, realizan transacciones, implementan algún tipo de lógica de negocio. 
+- Clase de entidad: se utilizan para representar las entidades del mundo real que se manejan en el sistema. 
+
+Entonces Angular, más especificamente los módulos HttpClient (realiza solicitudes HTTP al backend) y Routers (permite definir rutas y navegar entre las paginas de la aplicacion) son clases de control ya que que se encargan de gestionar las solicitudes del usuario, coordinar la interacción entre la interfaz de usuario y los datos del backend y controlar el flujo general de la aplicación.
+
+En el diagrama de clases de análisis (Flujo de Diseño) se enfatizan las relaciones entre entidades (clases de entidad), o sea, no hay que poner las clases de control. Las clases de control son consideradas más dinámicas que las clases de entidad, ya que están involucradas en la lógica y el control del sistema en tiempo de ejecución.  Y las clases de interfaz son las más dinámicas de las tres, ya que reflejan la interacción directa con el usuario y pueden cambiar más frecuentemente para adaptarse a los requisitos de la interfaz gráfica o las necesidades del usuario.
+
+Relaciones entre clases: 
+
+- Asociación: Un coche (Clase A) y un motor (Clase B) están asociados, ya que el coche tiene un motor que lo impulsa.
+
+- Composición: Un coche (Clase A) se compone de un motor (Clase B), ruedas (Clase C) y otros componentes. Si el coche se destruye, todos sus componentes también se destruirán.
+
+- Agregación: Un equipo (Clase A) tiene jugadores (Clase B) como parte de él. Si el equipo se disuelve, los jugadores pueden seguir existiendo y unirse a otros equipos.
+
+- Herencia: Una clase "Animal" (superclase) puede tener subclases como "Perro," "Gato," "Ave," que heredan sus características y comportamientos.
+
+En el contexto del proceso de prueba, "blocker," "critical" y "major" son niveles de severidad que se asignan a los errores o problemas encontrados durante las pruebas. Estos niveles de severidad indican la gravedad del error y la prioridad con la que deben ser resueltos por el equipo de desarrollo.
+
+- Blocker: Un error con nivel "blocker" se refiere a un problema grave que impide que el software funcione correctamente o que afecta a funciones fundamentales del sistema. Estos errores son tan críticos que "bloquean" el avance del proceso de prueba o incluso la entrega del producto, y deben ser corregidos de inmediato.
+
+- Critical: Los errores con nivel "critical" son también de alta gravedad y tienen un impacto significativo en la funcionalidad o rendimiento del software. Aunque no bloquean completamente el proceso, son considerados cruciales y deben ser tratados con alta prioridad para resolverlos antes de la entrega del producto.
+
+- Major: Los errores con nivel "major" son de gravedad moderada. Aunque no son tan críticos como los "blockers" o "criticals," aún tienen un impacto importante en el funcionamiento del software y requieren una atención y corrección oportuna.
+
+El objetivo del proceso de prueba es detectar y reportar estos errores para que el equipo de desarrollo pueda abordarlos antes de que el producto sea lanzado a los usuarios finales. Al completar el proceso de prueba una vez que todos los casos de prueba definidos hayan sido aplicados y se hayan resuelto todos los errores importantes, se asegura que el software sea lo más confiable y funcional posible antes de su entrega.
+
+Casos de Uso:
+
+- Ver tendencias --> OK
+- Registrar --> OK
+- Ingresar --> OK
+- Buscar Usuario --> OK
+- Leer muro de un usuario --> OK
+- Seguir usuario/Dejar de seguir --> OK
+- Publicar mensaje --> OK
+
+- Borrar mensaje --> OK
+- Editar mensaje --> OK
+- Enviar mensaje privado --> OK
+- Ver tablon de anuncios --> OK
+- Cambiar dias tendencias --> OK
+- Enviar mail  cuando cambian dias tendencias --> OK
