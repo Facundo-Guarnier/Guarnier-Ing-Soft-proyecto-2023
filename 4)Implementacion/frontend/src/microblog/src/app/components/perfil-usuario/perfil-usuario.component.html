@@ -23,7 +23,6 @@
                     class="rounded-circle d-flex align-self-center me-3 shadow-1-strong" width="60">
                     </div>
 
-
                     <h5 class="card-title my-2" style="text-align: start; font-size: 2vh;">{{user.nombre}}</h5>
                 </div>
                 <div class="col-9">
@@ -42,8 +41,8 @@
                         </div>
                         <div class="col-3 text-end">
 
-                            <!--! Seguir usuario  -->
                             <div *ngIf="username !== alias">
+                                <!--! Dejar de seguir usuario  -->
                                 <div *ngIf="seguido === true">
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <button type="button" class="btn btn-primary" routerLink="mp" (click)="enviarMp()">
@@ -55,6 +54,7 @@
                                     </div>
                                 </div>
     
+                                <!--! Seguir usuario -->
                                 <div *ngIf="seguido === false">
                                     <div *ngIf="token">
                                         <div class="btn-group" role="group" aria-label="Basic example">
@@ -67,8 +67,8 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                             </div>
-                            
                         </div>
                     </div>
                     <hr class="hr" style="border-top: 1px solid rgb(0, 0, 0);" />
@@ -76,18 +76,13 @@
                         <p class="text-start" style="font-size: 1.75vh;">{{user.descripcion}}</p>
                     </div>
                 </div>
-
             </div>
         </div>
-
         <hr class="hr" style="border-top: 1px solid rgb(255, 255, 255);" />
-
         <div  *ngFor="let mensaje of arrayMensajes">
             <app-mensaje [mensaje] = "mensaje"></app-mensaje>
         </div>
-
     </div>
-
     <div class="col">
     </div>
 </div>
