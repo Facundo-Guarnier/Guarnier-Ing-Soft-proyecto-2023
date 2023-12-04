@@ -23,6 +23,8 @@ export class MuroComponent implements OnInit {
   ngOnInit(): void {
     
     this.token = localStorage.getItem("token") || undefined
+
+    //! Obtener mensajes
     this.MensajesService.getMensajes(this.token).subscribe(
       (data:any) => {
         this.arrayMensajes = data;

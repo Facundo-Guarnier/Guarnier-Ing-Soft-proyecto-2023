@@ -29,6 +29,7 @@ export class MensajeInputComponent implements OnInit {
     )
   }
 
+  //! Publicar mensaje
   submit() {
     if(this.mensajeForm.valid) {
       this.MensajesService.postMensajes({texto:this.mensajeForm.value.texto},this.token).subscribe(

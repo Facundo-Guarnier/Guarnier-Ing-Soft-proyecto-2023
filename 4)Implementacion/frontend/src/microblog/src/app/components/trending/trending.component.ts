@@ -27,6 +27,7 @@ export class TrendingComponent implements OnInit {
   ngOnInit(): void {
     this.token = localStorage.getItem("token") || undefined
 
+    //! Hashtag en tendencia
     this.HashtagTendenciaService.getHashtagTendencia().subscribe(
       (data:any) => {
         this.arrayTendencias = data;
@@ -43,6 +44,7 @@ export class TrendingComponent implements OnInit {
       this.admin = this.getDecodedAccessToken(this.token).admin
     }
 
+    //! Mensajes en tendencia
     this.MensajesTendenciaService.getMensajesTendencia().subscribe(
       (data:any) => {
         this.arrayMensajes = data;

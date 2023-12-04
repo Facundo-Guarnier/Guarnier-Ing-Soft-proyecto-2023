@@ -9,15 +9,13 @@ import re
 from main.mail.funcion import sendMail
 from pymongo import DESCENDING
 
-
+#T* Mensajes
 class Mensajes(Resource):
-    
     #! Publicar mensaje
     @jwt_required()
     def post(self):
 
         texto = request.json['texto']
-
         if len(texto) > 140:
             return "El texto no puede tener mas de 140 caracteres.", 409 
 
@@ -28,13 +26,14 @@ class Mensajes(Resource):
         autor = claims["alias"]
         fecha = datetime.now()
 
-        #Buscar si la mencion existe
+        #! Buscar menciones en la base de datos.
         for mencion in menciones:
             alias2 = mongo.db.users.find_one({"alias": mencion})
 
             if alias2 is None:
                 return "No existe el alias '{}'".format(mencion), 409
 
+        #! Insertar mensaje en la base de datos.
         id = mongo.db.messages.insert_one(
                 {
                 'texto': texto,
@@ -44,6 +43,7 @@ class Mensajes(Resource):
                 "fecha": fecha,
                 }
             )
+        
         response = jsonify(
                 {
                 '_id': str(id),
@@ -55,10 +55,9 @@ class Mensajes(Resource):
                 }
             )
         response.status_code = 201
-
         return response
 
-    #! Ver tablon de anuncios
+    #! Ver tablón de anuncios
     @jwt_required()
     def get(self):
 
@@ -66,18 +65,16 @@ class Mensajes(Resource):
         alias = claims["alias"]
 
         datos = mongo.db.users.find_one({"alias":alias})
-
         seguidos = datos["seguidos"]
-
         seguidos.append(alias)
 
         mensajes = mongo.db.messages.find({"autor": {"$in": seguidos}}).sort("fecha", -1)
-
         response = json_util.dumps(mensajes)
         
         return Response(response, mimetype="application/json")
 
 
+#T* Mensaje en particular.
 class Mensaje(Resource):
     #! Borrar mensaje
     @jwt_required()
@@ -87,17 +84,15 @@ class Mensaje(Resource):
 
         from bson import ObjectId
         object_id = ObjectId(_id)
-    
         autor_mensaje = mongo.db.messages.find_one({"_id":object_id, "autor":autor})
         
         if autor_mensaje is None:
             return "No podes borrar mensaje ajenos.", 403
 
         mongo.db.messages.delete_one({'_id': object_id})
-
         return "Mensaje eliminado", 200
     
-    #! Editado mensaje
+    #! Editar mensaje
     @jwt_required()
     def put(self, _id):
         claims = get_jwt()
@@ -139,6 +134,8 @@ class Mensaje(Resource):
 
         return "Mensaje modificado.", 200
 
+
+#T* Mensajes de un usuario.
 class MensajesAutor(Resource):
     #! Para ver muro de usuario
     def get(self, autor):
@@ -148,6 +145,8 @@ class MensajesAutor(Resource):
             return "No existe mensajes con el autor '{}'".format(autor), 404
         return Response(response, mimetype="application/json")
 
+
+#T* Cantidad de días para tendencias.
 class Dias(Resource):
     @staticmethod
     def get():
@@ -171,10 +170,11 @@ class Dias(Resource):
         except FileNotFoundError:
                 return "No se pudo modificar.", 409
 
+
+#T* Hashtag en tendencia.
 class HashtagTendencia(Resource):
-    
     @staticmethod
-    #! Mensajes de hashtag en tendencia.
+    #! Hashtag en tendencia.
     def get():
 
         dias = Dias.get()
@@ -231,6 +231,8 @@ class HashtagTendencia(Resource):
 
         return "Emails enviados", 200
 
+
+#T* Mensajes con hashtag en tendencia.
 class MensajesTendencia(Resource):
     
     @staticmethod
@@ -250,7 +252,7 @@ class MensajesTendencia(Resource):
 
         for x in get:
             tendencias.append(x["etiqueta"][0])
-       
+        
         result_mensajes = mensajes_con_tendencias = mongo.db.messages.find({"hashtags": {"$in": tendencias}}).sort("fecha", -1)
     
         response = json_util.dumps(result_mensajes)

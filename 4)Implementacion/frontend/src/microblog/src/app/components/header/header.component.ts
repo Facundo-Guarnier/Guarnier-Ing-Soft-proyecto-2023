@@ -32,6 +32,7 @@ export class HeaderComponent implements OnInit {
     )
   }
 
+  //! Buscar usuarios
   submitBuscar() {
     if(this.buscarForm.valid) {
       this.alias = this.buscarForm.value.alias

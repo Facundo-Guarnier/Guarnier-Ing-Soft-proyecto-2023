@@ -2,7 +2,7 @@
 
     <div class="dropdown" *ngIf=" token === undefined">
         <app-bienvenida></app-bienvenida>
-      </div>
+    </div>
 
     <div class="col">
     </div>
@@ -41,9 +41,8 @@
                             <h6 style="font-size: 2vh;">mensajes</h6>
                         </div>
                         <div class="col-3 text-end">
-                            <div *ngIf="username === alias">
 
-                            </div>
+                            <!--! Seguir usuario  -->
                             <div *ngIf="username !== alias">
                                 <div *ngIf="seguido === true">
                                     <div class="btn-group" role="group" aria-label="Basic example">
@@ -51,7 +50,7 @@
                                             <i class="fa-solid fa-message"></i>
                                         </button>
                                         <button type="button" class="btn btn-danger" (click)="submit()">
-                                            <i class="fa-solid fa-user-minus"></i>
+                                            <i class="fa-solid fa-user-minus"> </i>
                                         </button>
                                     </div>
                                 </div>
@@ -70,7 +69,6 @@
                                 </div>
                             </div>
                             
-
                         </div>
                     </div>
                     <hr class="hr" style="border-top: 1px solid rgb(0, 0, 0);" />

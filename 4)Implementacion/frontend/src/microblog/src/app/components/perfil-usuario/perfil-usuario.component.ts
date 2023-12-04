@@ -36,6 +36,7 @@ export class PerfilUsuarioComponent implements OnInit {
       this.username = this.getDecodedAccessToken(this.token).alias
     }
 
+    //! Cargar mensajes
     this.alias = this.route.snapshot.paramMap.get('alias');
     this.MensajesAutorService.getMensajes(this.alias).subscribe(
       (data:any) => {
@@ -43,22 +44,22 @@ export class PerfilUsuarioComponent implements OnInit {
       }
     )
 
+    //! Cargar info usuario
     this.UsuarioService.getUsuario(this.alias).subscribe(
       (data:any) => {
         this.user = data;
 
-
         if (this.user['seguidores'].includes(this.username)) {
           this.seguido = true
-        }
-
-      else {
+        
+        } else {
         this.seguido = false
         }
       }
     )
   }
 
+  //! Seguir o dejar de seguir
   submit() {
     this.token = localStorage.getItem("token")
     this.UsuarioService.putUsuario(this.alias, this.token).subscribe(
@@ -78,6 +79,7 @@ export class PerfilUsuarioComponent implements OnInit {
   getDecodedAccessToken(token: any): any {
     try {
       return jwt_decode(token);
+      
     } catch(Error) {
       return null;
     }
