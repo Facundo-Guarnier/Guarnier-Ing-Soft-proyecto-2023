@@ -56,6 +56,10 @@ export class MensajeInputComponent implements OnInit {
     )
   }
 
+  perfil() {
+    window.location.href = "/muro/" + this.getDecodedAccessToken(this.token).alias
+  }
+
   getDecodedAccessToken(token: any): any {
     try {
       return jwt_decode(token);
