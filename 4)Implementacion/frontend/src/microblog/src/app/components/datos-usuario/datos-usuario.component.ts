@@ -17,7 +17,7 @@ export class DatosUsuarioComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.token = this.getDecodedAccessToken(localStorage.getItem("token"))
+    this.token = localStorage.getItem("token")
 
     this.usuarioService.getUsuario(this.token.alias).subscribe(
       (data:any) => {        
