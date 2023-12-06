@@ -15,11 +15,11 @@ export class PerfilUsuarioComponent implements OnInit {
 
   user: any;
   alias: any;
-  mensajes: any;
   token: any;
   arrayMensajes: any;
   username: any;
   seguido: any
+  mensajes: any;
   
 
   constructor(
@@ -51,7 +51,6 @@ export class PerfilUsuarioComponent implements OnInit {
 
         if (this.user['seguidores'].includes(this.username)) {
           this.seguido = true
-        
         } else {
         this.seguido = false
         }
@@ -60,7 +59,7 @@ export class PerfilUsuarioComponent implements OnInit {
   }
 
   //! Seguir o dejar de seguir
-  submit() {
+  seguir() {
     this.token = localStorage.getItem("token")
     this.UsuarioService.putUsuario(this.alias, this.token).subscribe(
       (response) => {

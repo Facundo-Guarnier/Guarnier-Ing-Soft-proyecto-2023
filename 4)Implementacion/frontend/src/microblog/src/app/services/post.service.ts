@@ -14,10 +14,12 @@ export class UsuarioService {
     private httpClient: HttpClient
   ) { }
 
+  //! Cargar info usuario
   getUsuario(alias: string) {
     return this.httpClient.get(this.url + "/" + alias);
   }
 
+  //! Seguir o dejar de seguir
   putUsuario(alias: any, token:any) {
     let heads = new HttpHeaders().set('Content-Type', 'application/json').set('Access-Control-Allow-Origin', '*').set('Authorization', 'Bearer ' + token)
     return this.httpClient.put(this.url + "/" + alias,{}, {headers: heads});
@@ -50,6 +52,7 @@ export class UsuariosEncontradosService {
     private httpClient: HttpClient
   ) { }
 
+  //! Buscar usuarios por alias
   getUsuario(alias: string) {
     return this.httpClient.get(this.url + "/" + alias);
   }

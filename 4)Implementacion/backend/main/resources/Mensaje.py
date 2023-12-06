@@ -137,7 +137,7 @@ class Mensaje(Resource):
 
 #T* Mensajes de un usuario.
 class MensajesAutor(Resource):
-    #! Para ver muro de usuario
+    #! Ver muro de usuario
     def get(self, autor):
         mensajes = mongo.db.messages.find({'autor': autor, }).sort("fecha", -1)
         response = json_util.dumps(mensajes)
@@ -148,6 +148,8 @@ class MensajesAutor(Resource):
 
 #T* Cantidad de días para tendencias.
 class Dias(Resource):
+    
+    #! Obtener cantidad de días.
     @staticmethod
     def get():
         try:
@@ -160,6 +162,7 @@ class Dias(Resource):
                 file.write(str(dias))
             return dias, 201
 
+    #! Modificar cantidad de días.
     @admin_required
     def put(self):
         dias = request.json['dias']
@@ -177,11 +180,9 @@ class HashtagTendencia(Resource):
     #! Hashtag en tendencia.
     def get():
 
-        dias = Dias.get()
-        
         from datetime import datetime, timedelta
+        dias = Dias.get()
         hoy = datetime.now()
-
         desde = hoy - timedelta(days=dias[0])
 
         pipeline = [
@@ -192,9 +193,7 @@ class HashtagTendencia(Resource):
         ]
         
         result = list(mongo.db.messages.aggregate(pipeline))
-
         sorted_data = sorted(result, key=lambda x: (-x["count"], x["_id"]))
-
         finales = sorted_data[:3]
 
         lista = []
@@ -213,7 +212,6 @@ class HashtagTendencia(Resource):
         usuarios = mongo.db.users.find({}, {'correo': 1, 'alias': 1, 'nombre': 1})
 
         temas = self.get()[0]
-
         temas =[item["etiqueta"][0] for item in temas]
 
         for usuario in usuarios:
@@ -239,13 +237,10 @@ class MensajesTendencia(Resource):
     #! Mensajes de hashtag en tendencia.
     def get():
 
-        dias = Dias.get()
-        
         from datetime import datetime, timedelta
+        dias = Dias.get()
         hoy = datetime.now()
-
         desde = hoy - timedelta(days=dias[0])
-
 
         get = HashtagTendencia.get()[0]
         tendencias = []
@@ -254,7 +249,6 @@ class MensajesTendencia(Resource):
             tendencias.append(x["etiqueta"][0])
         
         result_mensajes = mensajes_con_tendencias = mongo.db.messages.find({"hashtags": {"$in": tendencias}}).sort("fecha", -1)
-    
         response = json_util.dumps(result_mensajes)
         
         return Response(response, mimetype="application/json")
