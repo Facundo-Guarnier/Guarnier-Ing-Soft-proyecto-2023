@@ -188,7 +188,8 @@ export class MensajesTendenciaService {
   constructor(
     private httpClient: HttpClient
   ) { }
-
+  
+  //! Ver mensajes en tendencia
   getMensajesTendencia() {
     return this.httpClient.get(this.url);
   }

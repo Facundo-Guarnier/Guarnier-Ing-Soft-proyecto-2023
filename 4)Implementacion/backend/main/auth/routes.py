@@ -10,6 +10,9 @@ auth = Blueprint('auth', __name__, url_prefix='/auth')
 def login():
     correo = request.json['correo']
     password = request.json['password']
+    if not correo or not password:
+        return "Faltan campos obligatorios", 400
+    
     user = mongo.db.users.find_one({"correo": correo})
     if user is None:
         return "Usuario no encontrado", 404
@@ -34,11 +37,15 @@ def login():
 #! Registro de usuario
 @auth.route('/register', methods=['POST'])
 def register():
+    
     #! Campos obligatorios
     correo = request.json['correo']
     alias = request.json['alias']
     nombre = request.json['nombre']
     password = request.json['password']
+    
+    if not correo or not alias or not nombre or not password:
+        return "Faltan campos obligatorios", 400
     
     #! Condición 1: Alias menor a 15 caracteres
     if len(alias) > 15:

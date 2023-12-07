@@ -199,7 +199,6 @@ class HashtagTendencia(Resource):
         lista = []
         for hashtag in finales:
             etiqueta = {}
-            
             etiqueta["etiqueta"] = [hashtag['_id'],hashtag['count']]
             lista.append(etiqueta)
         

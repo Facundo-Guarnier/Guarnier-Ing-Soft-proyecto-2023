@@ -42,7 +42,7 @@ export class BienvenidaComponent implements OnInit {
   }
 
   //! Login
-  submitlogin() {
+  submitLogin() {
     if(this.loginForm.valid) {
       this.login(
         {
@@ -60,16 +60,14 @@ export class BienvenidaComponent implements OnInit {
         next: (rta) => {
           localStorage.setItem('token', rta.access_token) ;
           this.router.navigate(["tablon"])
-        }, 
         
-        error: (error) =>{
+        }, error: (error) =>{
           //! Usuario no encontrado
           alert(error.error);
           console.log('Error: ', error);
           localStorage.removeItem('token');
-        },        
-    
-        complete: () => {
+        
+        }, complete: () => {
           console.log('Terminó el login.');
         }
       }
@@ -77,7 +75,7 @@ export class BienvenidaComponent implements OnInit {
   }
   
   //! Registrar
-  submitregistrar() {
+  submitRegistrar() {
     if(this.loginForm.valid) {
     this.registrar(
         {
