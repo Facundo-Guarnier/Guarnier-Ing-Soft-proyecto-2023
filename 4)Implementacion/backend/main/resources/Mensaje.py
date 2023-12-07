@@ -14,7 +14,6 @@ class Mensajes(Resource):
     #! Publicar mensaje
     @jwt_required()
     def post(self):
-
         texto = request.json['texto']
         if len(texto) > 140:
             return "El texto no puede tener mas de 140 caracteres.", 409 

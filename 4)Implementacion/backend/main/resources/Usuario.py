@@ -16,7 +16,6 @@ class Usuario(Resource):
     #! Seguir o dejar de seguir
     @jwt_required()
     def put(self, alias):
-        
         seguido = mongo.db.users.find_one({"alias": alias})
         if seguido is None:
             return "Usuario inexistente", 409

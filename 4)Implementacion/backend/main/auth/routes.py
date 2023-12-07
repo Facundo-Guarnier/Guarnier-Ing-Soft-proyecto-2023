@@ -37,7 +37,6 @@ def login():
 #! Registro de usuario
 @auth.route('/register', methods=['POST'])
 def register():
-    
     #! Campos obligatorios
     correo = request.json['correo']
     alias = request.json['alias']
